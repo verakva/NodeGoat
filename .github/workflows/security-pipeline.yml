@@ -1,0 +1,48 @@
+name: Security  
+  
+on:  
+  push:  
+    branches:  
+      - main  
+  pull_request:  
+    branches:  
+      - main  
+  
+jobs:   
+  build:  
+    runs-on: ubuntu-latest  
+  
+    steps:   
+      - name: checkout repo  
+        uses: actions/checkout@v3  
+  
+      - name: use node.js  
+        uses: actions/setup-node@v3  
+        with:  
+          node-version: 14.x  
+  
+      - run: npm install  
+  
+      - name: Run OWASP Dependency Check  
+        env:  
+          OWASP_COMMAND: './dependency-check/bin/dependency-check.sh -f JSON -s . -o . --enableExperimental'  
+        run: |    
+          wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.5.2/dependency-check-6.5.2-release.zip  
+          unzip dependency-check-6.5.2-release.zip  
+          $OWASP_COMMAND  
+          cat dependency-check-report.json  
+      
+      - name: Run Gitleaks    
+        uses: zricethezav/gitleaks-action@v1.6.0    
+  
+      - name: Run Semgrep  
+        uses: returntocorp/semgrep-action@v1  
+        with:  
+          config: p/security-audit
+  
+      - name: Fail if high or critical findings  
+        run: |    
+          if [ $(cat semgrep/semgrep_output.json | jq '.findings | .[].severity | select(. == "HIGH" or . == "CRITICAL") | length') -gt 0 ]; then  
+            echo "Critical or high severity findings detected!"  
+            exit 1  
+          fi  

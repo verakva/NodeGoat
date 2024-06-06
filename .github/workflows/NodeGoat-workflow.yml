@@ -27,6 +27,7 @@ jobs:
           ### SCANNING: Required fields
           blackduck_url: ${{ vars.BLACKDUCK_URL }}
           blackduck_token: ${{ secrets.BLACKDUCK_TOKEN }}
+          blackduck_scan_full: true
          
           ### SCANNING: Optional fields
           blackduck_scan_failure_severities: 'BLOCKER,CRITICAL'

@@ -20,7 +20,8 @@ function ResearchHandler(db) {
                     });
                 }
                 res.write("<h1>The following is the stock information you requested.</h1>\n\n");
-                res.write("<h1> Action Test -  commit 1 </h1>\n\n");
+                res.write("<h1> Action Test - PUSH  commit 1 </h1>\n\n");
+                res.write("<h1> Action Test - PR  commit 2 </h1>\n\n");
               
                 res.write("\n\n");
                 if (body) {

@@ -161,4 +161,4 @@ Here are the amazing [contributors](https://github.com/OWASP/NodeGoat/graphs/con
 
 Code licensed under the [Apache License v2.0.](http://www.apache.org/licenses/LICENSE-2.0)
 
-Do not taunt Happy Fun Ball. Happy Fun Ball is filled with a glowing radioactive substance.
+Do not taunt Happy Fun Ball. Happy Fun Ball is filled with a glowing radioactive substance. Test.
